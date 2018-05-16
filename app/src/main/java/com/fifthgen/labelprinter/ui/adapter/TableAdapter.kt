@@ -10,6 +10,9 @@ import android.widget.Toast
 import com.fifthgen.labelprinter.R
 import com.fifthgen.labelprinter.model.TableItem
 import com.fifthgen.labelprinter.ui.custom.AutoResizeTextView
+import com.fifthgen.labelprinter.util.Constants.Companion.ALPHABET
+import com.fifthgen.labelprinter.util.Constants.Companion.COLS
+import com.fifthgen.labelprinter.util.Constants.Companion.ROWS
 
 class TableAdapter(context: Context?, itemCollection: List<TableItem>) :
         ArrayAdapter<TableItem>(context, 0, itemCollection), View.OnClickListener {
@@ -41,7 +44,9 @@ class TableAdapter(context: Context?, itemCollection: List<TableItem>) :
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            0 -> Toast.makeText(context, "Hello from number key.", Toast.LENGTH_LONG).show()
+            0 -> Toast.makeText(context, "Hello from pound symbol.", Toast.LENGTH_LONG).show()
+            (ROWS * COLS) - 1 -> Toast.makeText(context, "Hello from net symbol.", Toast.LENGTH_LONG).show()
+            else -> Toast.makeText(context, "Hello from ${ALPHABET[view?.id?.minus(1)]}.", Toast.LENGTH_LONG).show()
         }
     }
 

@@ -22,6 +22,7 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
+        <service android:name=".service.FetchDataService" />
     </application>
 
 </manifest>

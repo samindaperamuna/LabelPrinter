@@ -6,6 +6,12 @@ import com.fifthgen.labelprinter.R
 import com.fifthgen.labelprinter.model.TableItem
 import com.fifthgen.labelprinter.ui.adapter.TableAdapter
 import com.fifthgen.labelprinter.ui.custom.AdapterTableLayout
+import com.fifthgen.labelprinter.util.Constants
+import com.fifthgen.labelprinter.util.Constants.Companion.ALPHABET
+import com.fifthgen.labelprinter.util.Constants.Companion.COLS
+import com.fifthgen.labelprinter.util.Constants.Companion.NET_SYMBOL
+import com.fifthgen.labelprinter.util.Constants.Companion.POUND_SYMBOL
+import com.fifthgen.labelprinter.util.Constants.Companion.ROWS
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,13 +26,13 @@ class MainActivity : AppCompatActivity() {
         val tableItems = ArrayList<TableItem>()
 
         val charList = ArrayList<Char>()
-        charList.add('#')
-        charList.addAll(('A'..'Z').toList())
-        charList.add('\u21C5')
+        charList.add(Constants.POUND_SYMBOL)
+        charList.addAll(ALPHABET.values)
+        charList.add(Constants.NET_SYMBOL)
 
         (0 until ROWS * COLS).forEach { i ->
             val tableItem = TableItem(i, charList[i].toString())
-            if (tableItem.value == '#'.toString() || tableItem.value == '\u21C5'.toString())
+            if (tableItem.value == POUND_SYMBOL.toString() || tableItem.value == NET_SYMBOL.toString())
                 tableItem.available = true
 
             tableItems.add(tableItem)
@@ -34,10 +40,5 @@ class MainActivity : AppCompatActivity() {
 
         val tableAdapter = TableAdapter(this, tableItems) as TableAdapter?
         tableLayout.adapter = tableAdapter
-    }
-
-    companion object {
-        private const val ROWS = 7
-        private const val COLS = 4
     }
 }
