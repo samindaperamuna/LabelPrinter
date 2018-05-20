@@ -9,7 +9,6 @@ import com.fifthgen.labelprinter.ui.adapter.TableAdapter
 
 class AdapterTableLayout(context: Context, attrs: AttributeSet) : TableLayout(context, attrs), ViewTreeObserver.OnGlobalLayoutListener {
 
-
     var adapter: TableAdapter? = null
         set(_adapter) {
             field = _adapter

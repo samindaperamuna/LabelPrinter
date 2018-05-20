@@ -8,8 +8,26 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.AlphabeticLayout" parent="AppTheme">
+    <style name="AppTheme.Basic" parent="AppTheme">
         <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Splash" parent="AppTheme">
+        <item name="android:background">@color/colorSplash</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="AppTheme.SplashTitle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="AppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/colorHighlightBG</item>
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+        <item name="android:textColorAlertDialogListItem">@color/colorAccent</item>
     </style>
 </resources>

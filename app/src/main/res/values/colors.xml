@@ -5,4 +5,5 @@
     <color name="colorAccent">#ffffff</color>
     <color name="colorHighlightBG">#333333</color>
     <color name="colorHighlight">#6171dd</color>
+    <color name="colorSplash">#28384c</color>
 </resources>

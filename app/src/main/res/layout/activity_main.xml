@@ -2,7 +2,7 @@
 <com.fifthgen.labelprinter.ui.custom.AdapterTableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tableLayout"
-    style="@style/AppTheme.AlphabeticLayout"
+    style="@style/AppTheme.Basic"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:stretchColumns="*"

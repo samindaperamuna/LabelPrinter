@@ -2,4 +2,6 @@
     <string name="app_name">Label Printer</string>
 
     <!-- Content description -->
+    <string name="splash_icon">Splash Icon</string>
+    <string name="splash_title">Title</string>
 </resources>
