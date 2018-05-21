@@ -6,7 +6,7 @@ import android.content.Intent
 import com.fifthgen.labelprinter.data.model.RoomRecord
 import com.fifthgen.labelprinter.util.Constants.Companion.BROADCAST_FAIL_ACTION
 import com.fifthgen.labelprinter.util.Constants.Companion.BROADCAST_SUCCESS_ACTION
-import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_MESSAGE
+import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_ERROR
 import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_RECORDS
 
 class FetchRoomRecordsBroadcastReceiver(private val broadcastListener: FetchRoomRecordsBroadcastListener) : BroadcastReceiver() {
@@ -18,7 +18,7 @@ class FetchRoomRecordsBroadcastReceiver(private val broadcastListener: FetchRoom
             records = data.filterIsInstance<RoomRecord>() as ArrayList
             broadcastListener.onBroadcastReceived(true, records, "")
         } else if (intent.action == BROADCAST_FAIL_ACTION) {
-            val message = intent.extras.getSerializable(PARAM_MESSAGE) as String
+            val message = intent.extras.getSerializable(PARAM_ERROR) as String
             broadcastListener.onBroadcastReceived(false, records, message)
         }
     }

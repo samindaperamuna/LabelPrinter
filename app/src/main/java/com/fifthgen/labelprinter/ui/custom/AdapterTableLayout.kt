@@ -12,7 +12,11 @@ class AdapterTableLayout(context: Context, attrs: AttributeSet) : TableLayout(co
     var adapter: TableAdapter? = null
         set(_adapter) {
             field = _adapter
-            viewTreeObserver.addOnGlobalLayoutListener(this)
+
+            if (measuredHeight != 0)
+                useAdapter(measuredHeight)
+            else
+                viewTreeObserver.addOnGlobalLayoutListener(this)
         }
 
     var columns: Int = 0
@@ -20,6 +24,10 @@ class AdapterTableLayout(context: Context, attrs: AttributeSet) : TableLayout(co
     var data = ArrayList<String>()
 
     private fun useAdapter(layoutHeight: Int) {
+
+        // Remove the existing views.
+        removeAllViews()
+
         if (adapter != null && !adapter!!.isEmpty) {
             for (i in 0 until rows) {
                 val row = TableRow(context)

@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
@@ -15,6 +16,7 @@ import com.fifthgen.labelprinter.service.receiver.FetchRoomRecordsBroadcastRecei
 import com.fifthgen.labelprinter.service.receiver.FetchRoomRecordsBroadcastReceiver.FetchRoomRecordsBroadcastListener
 import com.fifthgen.labelprinter.util.Constants
 import com.fifthgen.labelprinter.util.Constants.Companion.APP_PREFERENCES
+import com.fifthgen.labelprinter.util.Constants.Companion.BROADCAST_FAIL_ACTION
 import com.fifthgen.labelprinter.util.Constants.Companion.BROADCAST_SUCCESS_ACTION
 import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_DATE
 import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_OFFLINE
@@ -26,25 +28,37 @@ import java.util.*
 class SplashActivity : AppCompatActivity(), InternetCheck.InternetCheckListener, FetchRoomRecordsBroadcastListener {
 
     private val roomRecordsBroadcastReceiver = FetchRoomRecordsBroadcastReceiver(this)
+
+    private var sharedPref: SharedPreferences? = null
+    private var session : Session? = null
     private var date = String()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        // Get last used date from shared preferences if available, else use today's date.
-        val sharedPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
-        val sdf = SimpleDateFormat(Constants.DATE_PATTERN, Locale.getDefault())
-        date = sharedPref.getString(PARAM_DATE, sdf.format(Date()))
+        sharedPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
 
-        InternetCheck(this).isInternetConnectionAvailable(this)
+        val sdf = SimpleDateFormat(Constants.DATE_PATTERN, Locale.getDefault())
+        date = sharedPref!!.getString(PARAM_DATE, sdf.format(Date()))
+
+        session = application as Session
+        session!!.offline = sharedPref!!.getBoolean(PARAM_OFFLINE, false)
+        if (session!!.offline) {
+            Toast.makeText(this, "Starting in offline mode.", Toast.LENGTH_LONG).show()
+            fetchDataOffline()
+        } else {
+            InternetCheck(this).isInternetConnectionAvailable(this)
+        }
     }
 
     override fun onResume() {
         super.onResume()
 
         // Register broadcast receiver.
-        val filter = IntentFilter(BROADCAST_SUCCESS_ACTION)
+        val filter = IntentFilter()
+        filter.addAction(BROADCAST_SUCCESS_ACTION)
+        filter.addAction(BROADCAST_FAIL_ACTION)
         registerReceiver(roomRecordsBroadcastReceiver, filter)
     }
 
@@ -68,23 +82,19 @@ class SplashActivity : AppCompatActivity(), InternetCheck.InternetCheckListener,
      */
     override fun onComplete(connected: Boolean) {
         if (connected) {
-            val fetchOnlineIntent = Intent(this, FetchRoomRecordsService::class.java)
-            fetchOnlineIntent.putExtra(PARAM_OFFLINE, false)
-            fetchOnlineIntent.putExtra(PARAM_DATE, date)
-            startService(fetchOnlineIntent)
+            fetchDataOnline()
         } else {
             AlertDialog.Builder(this@SplashActivity, R.style.AppTheme_Dialog)
                     .setTitle("No internet connection available.")
                     .setMessage("Do you want to start in offline mode?")
+                    .setCancelable(false)
                     .setPositiveButton("Yes") { _, _ ->
-                        // Set session to offline.
-                        val session = application as Session
-                        session.offline = true
+                        session!!.offline = true
 
-                        val fetchOfflineIntent = Intent(this, FetchRoomRecordsService::class.java)
-                        fetchOfflineIntent.putExtra(PARAM_OFFLINE, session.offline)
-                        fetchOfflineIntent.putExtra(PARAM_DATE, date)
-                        startService(fetchOfflineIntent)
+                        // Save session value into shared preferences.
+                        sharedPref!!.edit().putBoolean(PARAM_OFFLINE, session!!.offline).apply()
+
+                        fetchDataOffline()
                     }
                     .setNegativeButton("No") { _, _ -> this@SplashActivity.finish() }
                     .show()
@@ -111,5 +121,19 @@ class SplashActivity : AppCompatActivity(), InternetCheck.InternetCheckListener,
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra(PARAM_RECORDS, records as ArrayList)
         startActivity(intent)
+    }
+
+    private fun fetchDataOffline() {
+        val fetchOfflineIntent = Intent(this, FetchRoomRecordsService::class.java)
+        fetchOfflineIntent.putExtra(PARAM_OFFLINE, session!!.offline)
+        fetchOfflineIntent.putExtra(PARAM_DATE, date)
+        startService(fetchOfflineIntent)
+    }
+
+    private fun fetchDataOnline() {
+        val fetchOnlineIntent = Intent(this, FetchRoomRecordsService::class.java)
+        fetchOnlineIntent.putExtra(PARAM_OFFLINE, false)
+        fetchOnlineIntent.putExtra(PARAM_DATE, date)
+        startService(fetchOnlineIntent)
     }
 }

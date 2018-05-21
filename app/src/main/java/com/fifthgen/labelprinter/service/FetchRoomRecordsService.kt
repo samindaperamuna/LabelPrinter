@@ -33,12 +33,6 @@ class FetchRoomRecordsService : IntentService(KClass::class.qualifiedName) {
         val date = intent.extras.getString(PARAM_DATE)
 
         if (!offline) {
-//            val executor = Executors.newSingleThreadExecutor()
-//            executor.submit({
-//                Looper.prepare()
-//                fetchRemote(date)
-//            })
-
             Handler(Looper.getMainLooper()).post({ fetchRemote(date) })
         } else {
             fetchLocal(date)
@@ -70,7 +64,7 @@ class FetchRoomRecordsService : IntentService(KClass::class.qualifiedName) {
 
             override fun onFailure(statusCode: Int, headers: Array<out Header>?, responseString: String?, throwable: Throwable?) {
                 val broadcastIntent = Intent(BROADCAST_FAIL_ACTION)
-                broadcastIntent.putExtra(PARAM_ERROR, "$statusCode : $responseString")
+                broadcastIntent.putExtra(PARAM_ERROR, "Cannot connect to the remote url. Try using offline mode.")
                 sendBroadcast(broadcastIntent)
             }
         })
