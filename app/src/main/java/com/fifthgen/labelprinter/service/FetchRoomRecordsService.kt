@@ -84,7 +84,7 @@ class FetchRoomRecordsService : IntentService(KClass::class.qualifiedName) {
             broadcastIntent.putExtra(PARAM_RECORDS, records as ArrayList)
         } catch (e: Exception) {
             broadcastIntent.action = BROADCAST_FAIL_ACTION
-            broadcastIntent.putExtra(PARAM_ERROR, "Couldn't persists data. Error: ${e.localizedMessage}")
+            broadcastIntent.putExtra(PARAM_ERROR, "Couldn't persist data. Error: ${e.localizedMessage}")
         }
 
         sendBroadcast(broadcastIntent)
@@ -96,6 +96,10 @@ class FetchRoomRecordsService : IntentService(KClass::class.qualifiedName) {
     fun saveToDb(records: List<RoomRecord>) {
         val repository = RoomRecordRepository(application)
 
+        // Delete existing records for the date.
+        repository.deleteDaysRecords(records[0].recordDate)
+
+        // Insert the records.
         records.forEach { repository.insert(it) }
 
         Log.i(this::class.qualifiedName, "${records.size} records saved.")

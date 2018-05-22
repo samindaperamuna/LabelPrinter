@@ -19,6 +19,7 @@ class Constants {
         const val PARAM_OFFLINE = "offline"
         const val PARAM_DATE = "date"
         const val PARAM_RECORDS = "records"
+        const val PARAM_INDEX = "index"
         const val PARAM_ERROR = "error"
         const val PARAM_MESSAGE = "message"
 

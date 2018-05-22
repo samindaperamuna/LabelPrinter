@@ -1,7 +1,6 @@
 package com.fifthgen.labelprinter.data
 
 import android.app.Application
-import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
 import com.fifthgen.labelprinter.data.model.RoomRecord
 import java.util.*
@@ -13,6 +12,10 @@ class RoomRecordRepository(application: Application) {
 
     fun insert(record: RoomRecord) {
         InsertAsyncClass(roomRecordDao).execute(record)
+    }
+
+    fun deleteDaysRecords(date: Date) {
+        roomRecordDao.deleteDaysRecords(date)
     }
 
     fun getRecords(date: Date): List<RoomRecord> {

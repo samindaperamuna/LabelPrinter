@@ -30,4 +30,11 @@
         <item name="android:textColorPrimary">@color/colorAccent</item>
         <item name="android:textColorAlertDialogListItem">@color/colorAccent</item>
     </style>
+
+    <style name="AppTheme.TextView" parent="AppTheme">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

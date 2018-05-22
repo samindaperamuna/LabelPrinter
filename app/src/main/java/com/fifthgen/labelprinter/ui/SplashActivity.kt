@@ -30,7 +30,7 @@ class SplashActivity : AppCompatActivity(), InternetCheck.InternetCheckListener,
     private val roomRecordsBroadcastReceiver = FetchRoomRecordsBroadcastReceiver(this)
 
     private var sharedPref: SharedPreferences? = null
-    private var session : Session? = null
+    private var session: Session? = null
     private var date = String()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +45,7 @@ class SplashActivity : AppCompatActivity(), InternetCheck.InternetCheckListener,
         session = application as Session
         session!!.offline = sharedPref!!.getBoolean(PARAM_OFFLINE, false)
         if (session!!.offline) {
-            Toast.makeText(this, "Starting in offline mode.", Toast.LENGTH_LONG).show()
+            Toast.makeText(this.applicationContext, "Starting in offline mode.", Toast.LENGTH_LONG).show()
             fetchDataOffline()
         } else {
             InternetCheck(this).isInternetConnectionAvailable(this)
@@ -107,7 +107,7 @@ class SplashActivity : AppCompatActivity(), InternetCheck.InternetCheckListener,
         if (success) {
             records = data as ArrayList<RoomRecord>
         } else {
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            Toast.makeText(this.applicationContext, message, Toast.LENGTH_LONG).show()
         }
 
         startMainActivity(records)

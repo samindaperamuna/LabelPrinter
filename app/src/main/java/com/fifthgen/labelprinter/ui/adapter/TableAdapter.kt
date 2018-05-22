@@ -11,22 +11,24 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.fifthgen.labelprinter.R
 import com.fifthgen.labelprinter.Session
+import com.fifthgen.labelprinter.data.model.RoomRecord
 import com.fifthgen.labelprinter.model.TableItem
 import com.fifthgen.labelprinter.service.FetchRoomRecordsService
+import com.fifthgen.labelprinter.ui.DirectoryActivity
 import com.fifthgen.labelprinter.ui.custom.AutoResizeTextView
 import com.fifthgen.labelprinter.util.Constants
 import com.fifthgen.labelprinter.util.Constants.Companion.ALPHABET
 import com.fifthgen.labelprinter.util.Constants.Companion.COLS
 import com.fifthgen.labelprinter.util.Constants.Companion.DATE_PATTERN
 import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_DATE
+import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_INDEX
+import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_RECORDS
 import com.fifthgen.labelprinter.util.Constants.Companion.ROWS
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TableAdapter(context: Context?, itemCollection: List<TableItem>) :
+class TableAdapter(context: Context?, itemCollection: List<TableItem>, private val records: List<RoomRecord>) :
         ArrayAdapter<TableItem>(context, 0, itemCollection), View.OnClickListener {
-
-    val mItemCollection = itemCollection
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
         // Get the data from the position.
@@ -51,8 +53,8 @@ class TableAdapter(context: Context?, itemCollection: List<TableItem>) :
         return view
     }
 
-    override fun onClick(view: View?) {
-        when (view?.id) {
+    override fun onClick(view: View) {
+        when (view.id) {
             0 -> Toast.makeText(context, "Hello from pound symbol.", Toast.LENGTH_LONG).show()
             (ROWS * COLS) - 1 -> {
                 val sdf = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
@@ -80,10 +82,17 @@ class TableAdapter(context: Context?, itemCollection: List<TableItem>) :
                             context.startService(fetchDataIntent)
                         }, y, m, d).show()
             }
-            else -> Toast.makeText(context, "Hello from ${ALPHABET[view?.id?.minus(1)]}.", Toast.LENGTH_LONG).show()
+            else -> {
+                val index = ALPHABET[view.id.minus(1)]
+                val filteredRecords = records.filter { it.customerName[0] == index } as ArrayList
+
+                val intent = Intent(context, DirectoryActivity::class.java)
+                intent.putExtra(PARAM_INDEX, index.toString())
+                intent.putExtra(PARAM_RECORDS, filteredRecords)
+                context.startActivity(intent)
+            }
         }
     }
-
 
     private class ItemView(view: View?) {
         var textView: AutoResizeTextView = view?.findViewById(R.id.textView) as AutoResizeTextView

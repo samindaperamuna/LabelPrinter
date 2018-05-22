@@ -1,6 +1,5 @@
 package com.fifthgen.labelprinter.data
 
-import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
@@ -16,6 +15,9 @@ interface RoomRecordDao {
 
     @Query("DELETE FROM room_records")
     fun deleteAll()
+
+    @Query("DELETE FROM room_records WHERE record_date=:date")
+    fun deleteDaysRecords(date: Date)
 
     @Query("SELECT * FROM  room_records WHERE record_date=:date ORDER BY id Asc")
     fun getRecords(date: Date): List<RoomRecord>

@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity(), FetchRoomRecordsBroadcastReceiver.Fetc
             tableItems.add(tableItem)
         }
 
-        val tableAdapter = TableAdapter(this, tableItems) as TableAdapter?
+        val tableAdapter = TableAdapter(this, tableItems, records) as TableAdapter?
         tableLayout.adapter = tableAdapter
     }
 
@@ -99,5 +99,6 @@ class MainActivity : AppCompatActivity(), FetchRoomRecordsBroadcastReceiver.Fetc
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra(Constants.PARAM_RECORDS, records)
         startActivity(intent)
+        finish()
     }
 }
