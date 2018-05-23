@@ -18,6 +18,13 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="AppTheme.TabLayout" parent="Base.Widget.Design.TabLayout">
+        <item name="tabBackground">@color/colorPrimaryDark</item>
+        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="tabIndicatorHeight">4dp</item>
+        <item name="tabSelectedTextColor">@color/colorAccent</item>
+    </style>
+
     <style name="AppTheme.SplashTitle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">24sp</item>

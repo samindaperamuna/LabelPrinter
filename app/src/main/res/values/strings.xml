@@ -1,7 +1,43 @@
 <resources>
     <string name="app_name">Label Printer</string>
+    <string name="main_title">Brother printer - Print label</string>
 
     <!-- Content description -->
     <string name="splash_icon">Splash Icon</string>
     <string name="splash_title">Title</string>
+
+    <string name="printer_settings">Printer Settings</string>
+    <string name="label_settings">Label Settings</string>
+
+    <!-- Form placeholders -->
+    <string name="offline">Offline Mode</string>
+    <string name="ip">IP Address</string>
+    <string name="mac">MAC Address</string>
+
+    <string name="full_name">Full Name</string>
+    <string name="company">Company</string>
+    <string name="position">Position</string>
+
+    <string name="save">Save Settings</string>
+    <string name="test">Test Settings</string>
+    <string name="print_preview">Preview</string>
+    <string name="print">Print</string>
+
+    <!-- Form validation messages -->
+    <string name="empty_ip">Please enter the IP address.</string>
+    <string name="invalid_ip">Please enter a valid IP address.</string>
+    <string name="empty_mac">Please enter the MAC address.</string>
+    <string name="invalid_mac">Please enter a valid MAC address.</string>
+
+    <string name="full_name_error">Please enter the full name.</string>
+    <string name="company_error">Please enter the company.</string>
+    <string name="position_error">Please enter the position.</string>
+
+    <string-array name="labelMakes">
+        <item name="PT">PT</item>
+        <item name="QL700">QL700</item>
+        <item name="PT3">PT3</item>
+        <item name="QL1100">QL1100</item>
+        <item name="QL1115">QL1115</item>
+    </string-array>
 </resources>

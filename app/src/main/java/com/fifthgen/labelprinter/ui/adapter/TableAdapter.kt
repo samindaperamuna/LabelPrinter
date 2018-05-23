@@ -8,13 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import com.fifthgen.labelprinter.R
 import com.fifthgen.labelprinter.Session
 import com.fifthgen.labelprinter.data.model.RoomRecord
 import com.fifthgen.labelprinter.model.TableItem
 import com.fifthgen.labelprinter.service.FetchRoomRecordsService
 import com.fifthgen.labelprinter.ui.DirectoryActivity
+import com.fifthgen.labelprinter.ui.SettingsActivity
 import com.fifthgen.labelprinter.ui.custom.AutoResizeTextView
 import com.fifthgen.labelprinter.util.Constants
 import com.fifthgen.labelprinter.util.Constants.Companion.ALPHABET
@@ -55,7 +55,10 @@ class TableAdapter(context: Context?, itemCollection: List<TableItem>, private v
 
     override fun onClick(view: View) {
         when (view.id) {
-            0 -> Toast.makeText(context, "Hello from pound symbol.", Toast.LENGTH_LONG).show()
+            0 -> {
+                val intent = Intent(context, SettingsActivity::class.java)
+                context.startActivity(intent)
+            }
             (ROWS * COLS) - 1 -> {
                 val sdf = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
                 val sharedPref = context.getSharedPreferences(Constants.APP_PREFERENCES, Context.MODE_PRIVATE)

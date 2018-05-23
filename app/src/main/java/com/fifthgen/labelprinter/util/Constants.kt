@@ -19,6 +19,7 @@ class Constants {
         const val PARAM_OFFLINE = "offline"
         const val PARAM_DATE = "date"
         const val PARAM_RECORDS = "records"
+        const val PARAM_RECORD = "record"
         const val PARAM_INDEX = "index"
         const val PARAM_ERROR = "error"
         const val PARAM_MESSAGE = "message"
@@ -26,5 +27,12 @@ class Constants {
         // Intent actions
         const val BROADCAST_SUCCESS_ACTION = "broadcastSuccessAction"
         const val BROADCAST_FAIL_ACTION = "broadcastFailAction"
+
+        // PrinterTask settings
+        const val LABEL_MAKE = "label_make"
+        const val LABEL_TYPE = "label_type"
+        const val LABEL_NAME_INDEX = "label_name_index"
+        const val IP = "ip"
+        const val MAC = "mac"
     }
 }

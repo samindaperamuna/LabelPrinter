@@ -36,6 +36,9 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
+    // MacAddressEdit components
+    implementation 'com.github.phearme:macaddress-edittext:1.0.1'
+
     // Room components
     implementation "android.arch.persistence.room:runtime:$roomVersion"
     kapt "android.arch.persistence.room:compiler:$roomVersion"
@@ -64,4 +67,5 @@ dependencies {
     // Android test components
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation files('libs/BrotherPrintLibrary.jar')
 }
