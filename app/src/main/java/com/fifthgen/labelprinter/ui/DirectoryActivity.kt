@@ -27,7 +27,7 @@ class DirectoryActivity : AppCompatActivity() {
         findViewById<RecyclerView>(R.id.indexItemsView).apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = IndexAdapter(records)
+            adapter = IndexAdapter(records, context)
         }
     }
 }

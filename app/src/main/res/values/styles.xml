@@ -38,10 +38,16 @@
         <item name="android:textColorAlertDialogListItem">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.TextView" parent="AppTheme">
+    <style name="AppTheme.TextViewTitle" parent="AppTheme">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="AppTheme.TextViewContent" parent="AppTheme">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>
