@@ -38,8 +38,8 @@ class SettingsActivity : AppCompatActivity() {
 
         override fun getItem(position: Int): Fragment {
 
-            return if (position == 1) LabelSettingsFragment()
-            else PrinterSettingsFragment()
+            return if (position == 1) PrinterSettingsFragment()
+            else LabelSettingsFragment()
         }
 
         override fun getCount(): Int {
@@ -48,8 +48,8 @@ class SettingsActivity : AppCompatActivity() {
 
         override fun getPageTitle(position: Int): CharSequence? {
 
-            return if (position == 1) getString(R.string.label_settings)
-            else getString(R.string.printer_settings)
+            return if (position == 1) getString(R.string.printer_settings)
+            else getString(R.string.label_settings)
         }
     }
 

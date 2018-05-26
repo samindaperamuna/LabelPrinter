@@ -21,8 +21,6 @@ class LabelSettingsFragment : Fragment(), View.OnClickListener {
     private var nameEditText: TextInputEditText? = null
     private var companyInputLayout: TextInputLayout? = null
     private var companyEditText: TextInputEditText? = null
-    private var positionTextInputLayout: TextInputLayout? = null
-    private var positionEditText: TextInputEditText? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_label_settings, container, false)
@@ -33,8 +31,6 @@ class LabelSettingsFragment : Fragment(), View.OnClickListener {
         nameEditText = view.findViewById(R.id.nameEditText)
         companyInputLayout = view.findViewById(R.id.companyInputLayout)
         companyEditText = view.findViewById(R.id.companyEditText)
-        positionTextInputLayout = view.findViewById(R.id.positionTextInputLayout)
-        positionEditText = view.findViewById(R.id.positionEditText)
 
         val previewButton = view.findViewById<ImageButton>(R.id.previewButton)
         previewButton.setOnClickListener(this)
@@ -48,13 +44,13 @@ class LabelSettingsFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.previewButton -> if (validateForm()) {
-                val text = arrayOf(nameEditText!!.text.toString(), companyEditText!!.text.toString(), positionEditText!!.text.toString())
+                val text = arrayOf(nameEditText!!.text.toString(), companyEditText!!.text.toString())
                 val bitmap = ImageUtil.textAsBitMap(text)
                 previewImageView!!.setImageBitmap(bitmap)
                 previewImageView!!.scaleType = ImageView.ScaleType.CENTER_INSIDE
             }
             R.id.printButton -> if (validateForm()) {
-                val text = arrayOf(nameEditText!!.text.toString(), companyEditText!!.text.toString(), positionEditText!!.text.toString())
+                val text = arrayOf(nameEditText!!.text.toString(), companyEditText!!.text.toString())
 
                 val activity = activity
 
@@ -74,10 +70,6 @@ class LabelSettingsFragment : Fragment(), View.OnClickListener {
             }
             companyEditText!!.text.toString() == "" -> {
                 companyInputLayout!!.error = getString(R.string.company_error)
-                false
-            }
-            positionEditText!!.text.toString() == "" -> {
-                positionTextInputLayout!!.error = getString(R.string.position_error)
                 false
             }
             else -> true

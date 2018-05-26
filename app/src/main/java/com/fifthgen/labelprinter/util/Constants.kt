@@ -8,6 +8,7 @@ class Constants {
         const val REMOTE_URL = "http://etiolles.club/deroule/rooming/get_all_roomilist_participant"
         const val APP_PREFERENCES = "labelPrinterPref"
         const val DATE_PATTERN = "dd/MM/yyyy"
+        const val URL_PATTERN = "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)"
 
         val ALPHABET = ('A'..'Z').mapIndexed { index, c -> index to c }.toMap()
 
@@ -19,6 +20,7 @@ class Constants {
         const val PARAM_OFFLINE = "offline"
         const val PARAM_DATE = "date"
         const val PARAM_RECORDS = "records"
+        const val PARAM_URL = "url"
         const val PARAM_RECORD = "record"
         const val PARAM_INDEX = "index"
         const val PARAM_ERROR = "error"
@@ -34,5 +36,6 @@ class Constants {
         const val LABEL_NAME_INDEX = "label_name_index"
         const val IP = "ip"
         const val MAC = "mac"
+        const val URL = "url"
     }
 }

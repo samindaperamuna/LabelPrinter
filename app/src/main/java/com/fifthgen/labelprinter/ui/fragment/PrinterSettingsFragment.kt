@@ -23,6 +23,7 @@ import com.fifthgen.labelprinter.util.Constants.Companion.LABEL_NAME_INDEX
 import com.fifthgen.labelprinter.util.Constants.Companion.LABEL_TYPE
 import com.fifthgen.labelprinter.util.Constants.Companion.MAC
 import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_OFFLINE
+import com.fifthgen.labelprinter.util.Constants.Companion.URL
 import com.phearme.macaddressedittext.MacAddressEditText
 import java.util.*
 
@@ -35,6 +36,8 @@ class PrinterSettingsFragment : Fragment(), AdapterView.OnItemSelectedListener, 
     private var ipTextInputEdit: TextInputEditText? = null
     private var macTextInputLayout: TextInputLayout? = null
     private var macTextInputEdit: MacAddressEditText? = null
+    private lateinit var urlTextInputLayout: TextInputLayout
+    private lateinit var urlTextInputEdit: TextInputEditText
 
     private lateinit var sharedPref: SharedPreferences
     private var labelTypes: MutableMap<Int, String>? = null
@@ -57,6 +60,9 @@ class PrinterSettingsFragment : Fragment(), AdapterView.OnItemSelectedListener, 
         macTextInputLayout = view.findViewById(R.id.macTextInputLayout)
         macTextInputEdit = view.findViewById(R.id.macTextInputEdit)
 
+        urlTextInputLayout = view.findViewById(R.id.urlTextInputLayout)
+        urlTextInputEdit = view.findViewById(R.id.urlTextInputEdit)
+
         val saveButton = view.findViewById<ImageButton>(R.id.saveButton)
         saveButton.setOnClickListener(this)
 
@@ -78,6 +84,7 @@ class PrinterSettingsFragment : Fragment(), AdapterView.OnItemSelectedListener, 
             offlineSwitch.isChecked = sharedPref.getBoolean(PARAM_OFFLINE, false)
             val ip = sharedPref.getString(IP, "")
             val mac = sharedPref.getString(MAC, "")
+            val url = sharedPref.getString(URL, "")
 
             if (labelMake!!.isNotEmpty()) {
                 val adapter = labelMakeListSpinner!!.adapter
@@ -97,6 +104,10 @@ class PrinterSettingsFragment : Fragment(), AdapterView.OnItemSelectedListener, 
 
             if (!mac!!.isEmpty()) {
                 macTextInputEdit!!.setText(mac)
+            }
+
+            if (url.isNotEmpty()) {
+                urlTextInputEdit.setText(url)
             }
         }
     }
@@ -180,6 +191,7 @@ class PrinterSettingsFragment : Fragment(), AdapterView.OnItemSelectedListener, 
 
                     editor.putString(IP, ipTextInputEdit!!.text.toString())
                     editor.putString(MAC, macTextInputEdit!!.text.toString())
+                    editor.putString(URL, urlTextInputEdit.text.toString())
 
                     editor.apply()
                     Toast.makeText(activity, "Settings saved successfully!", Toast.LENGTH_SHORT).show()
@@ -206,6 +218,12 @@ class PrinterSettingsFragment : Fragment(), AdapterView.OnItemSelectedListener, 
             return false
         } else if (macTextInputEdit!!.text.toString() == "") {
             macTextInputLayout!!.error = getString(R.string.empty_mac)
+            return false
+        } else if (urlTextInputEdit.text.toString() == "") {
+            urlTextInputLayout.error = getString(R.string.empty_url)
+            return false
+        } else if (!urlTextInputEdit.text.toString().matches(Constants.URL_PATTERN.toRegex())) {
+            urlTextInputLayout.error = getString(R.string.invalid_url)
             return false
         }
 

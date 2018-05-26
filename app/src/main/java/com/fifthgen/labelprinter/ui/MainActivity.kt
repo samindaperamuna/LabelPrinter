@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), FetchRoomRecordsBroadcastReceiver.Fetc
         setContentView(R.layout.activity_main)
 
         val data = intent.extras.getSerializable(Constants.PARAM_RECORDS) as List<*>
-        val records = data.filterIsInstance<RoomRecord>() as ArrayList
+        val records = data.filterIsInstance<RoomRecord>() as ArrayList<RoomRecord>
         initTable(records)
     }
 

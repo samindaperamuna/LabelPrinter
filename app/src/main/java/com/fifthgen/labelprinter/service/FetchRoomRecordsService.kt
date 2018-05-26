@@ -16,7 +16,7 @@ import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_DATE
 import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_ERROR
 import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_OFFLINE
 import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_RECORDS
-import com.fifthgen.labelprinter.util.Constants.Companion.REMOTE_URL
+import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_URL
 import com.loopj.android.http.RequestParams
 import com.loopj.android.http.TextHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -33,7 +33,8 @@ class FetchRoomRecordsService : IntentService(KClass::class.qualifiedName) {
         val date = intent.extras.getString(PARAM_DATE)
 
         if (!offline) {
-            Handler(Looper.getMainLooper()).post({ fetchRemote(date) })
+            val url = intent.extras.getString(PARAM_URL)
+            Handler(Looper.getMainLooper()).post({ fetchRemote(url, date) })
         } else {
             fetchLocal(date)
         }
@@ -42,11 +43,11 @@ class FetchRoomRecordsService : IntentService(KClass::class.qualifiedName) {
     /**
      * Fetch data from the remote server.
      */
-    private fun fetchRemote(date: String) {
+    private fun fetchRemote(url: String, date: String) {
         val requestParams = RequestParams()
         requestParams.add(PARAM_DATE, date)
 
-        WebClient.httpGet(REMOTE_URL, requestParams, object : TextHttpResponseHandler() {
+        WebClient.httpGet(url, requestParams, object : TextHttpResponseHandler() {
 
             override fun onSuccess(statusCode: Int, headers: Array<out Header>?, responseString: String?) {
                 if (statusCode == HttpStatus.SC_OK) {

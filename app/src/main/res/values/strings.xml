@@ -13,6 +13,7 @@
     <string name="offline">Offline Mode</string>
     <string name="ip">IP Address</string>
     <string name="mac">MAC Address</string>
+    <string name="url">Data Url</string>
 
     <string name="full_name">Full Name</string>
     <string name="company">Company</string>
@@ -28,6 +29,8 @@
     <string name="invalid_ip">Please enter a valid IP address.</string>
     <string name="empty_mac">Please enter the MAC address.</string>
     <string name="invalid_mac">Please enter a valid MAC address.</string>
+    <string name="empty_url">Please enter the URL.</string>
+    <string name="invalid_url">Please enter a valid URL.</string>
 
     <string name="full_name_error">Please enter the full name.</string>
     <string name="company_error">Please enter the company.</string>

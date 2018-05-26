@@ -21,6 +21,9 @@ import com.fifthgen.labelprinter.util.Constants.Companion.BROADCAST_SUCCESS_ACTI
 import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_DATE
 import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_OFFLINE
 import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_RECORDS
+import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_URL
+import com.fifthgen.labelprinter.util.Constants.Companion.REMOTE_URL
+import com.fifthgen.labelprinter.util.Constants.Companion.URL
 import com.fifthgen.labelprinter.util.InternetCheck
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,6 +35,7 @@ class SplashActivity : AppCompatActivity(), InternetCheck.InternetCheckListener,
     private var sharedPref: SharedPreferences? = null
     private var session: Session? = null
     private var date = String()
+    private var url = String()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +45,7 @@ class SplashActivity : AppCompatActivity(), InternetCheck.InternetCheckListener,
 
         val sdf = SimpleDateFormat(Constants.DATE_PATTERN, Locale.getDefault())
         date = sharedPref!!.getString(PARAM_DATE, sdf.format(Date()))
+        url = sharedPref!!.getString(URL, "")
 
         session = application as Session
         session!!.offline = sharedPref!!.getBoolean(PARAM_OFFLINE, false)
@@ -134,6 +139,7 @@ class SplashActivity : AppCompatActivity(), InternetCheck.InternetCheckListener,
         val fetchOnlineIntent = Intent(this, FetchRoomRecordsService::class.java)
         fetchOnlineIntent.putExtra(PARAM_OFFLINE, false)
         fetchOnlineIntent.putExtra(PARAM_DATE, date)
+        fetchOnlineIntent.putExtra(PARAM_URL, url)
         startService(fetchOnlineIntent)
     }
 }

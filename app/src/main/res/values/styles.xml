@@ -19,10 +19,10 @@
     </style>
 
     <style name="AppTheme.TabLayout" parent="Base.Widget.Design.TabLayout">
-        <item name="tabBackground">@color/colorPrimaryDark</item>
-        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="tabBackground">@color/colorSplash</item>
+        <item name="tabIndicatorColor">@color/colorHighlight</item>
         <item name="tabIndicatorHeight">4dp</item>
-        <item name="tabSelectedTextColor">@color/colorAccent</item>
+        <item name="tabSelectedTextColor">@color/colorHighlight</item>
     </style>
 
     <style name="AppTheme.SplashTitle" parent="TextAppearance.AppCompat">

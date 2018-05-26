@@ -23,7 +23,9 @@ import com.fifthgen.labelprinter.util.Constants.Companion.DATE_PATTERN
 import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_DATE
 import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_INDEX
 import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_RECORDS
+import com.fifthgen.labelprinter.util.Constants.Companion.PARAM_URL
 import com.fifthgen.labelprinter.util.Constants.Companion.ROWS
+import com.fifthgen.labelprinter.util.Constants.Companion.URL
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -63,6 +65,7 @@ class TableAdapter(context: Context?, itemCollection: List<TableItem>, private v
                 val sdf = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
                 val sharedPref = context.getSharedPreferences(Constants.APP_PREFERENCES, Context.MODE_PRIVATE)
                 val prevDate = sharedPref.getString(PARAM_DATE, sdf.format(Date()))
+                val prevUrl = sharedPref.getString(URL, "")
 
                 val calendar = Calendar.getInstance()
                 calendar.time = sdf.parse(prevDate)
@@ -82,6 +85,7 @@ class TableAdapter(context: Context?, itemCollection: List<TableItem>, private v
                             val fetchDataIntent = Intent(context, FetchRoomRecordsService::class.java)
                             fetchDataIntent.putExtra(Constants.PARAM_OFFLINE, session.offline)
                             fetchDataIntent.putExtra(Constants.PARAM_DATE, date)
+                            fetchDataIntent.putExtra(PARAM_URL, prevUrl)
                             context.startService(fetchDataIntent)
                         }, y, m, d).show()
             }
